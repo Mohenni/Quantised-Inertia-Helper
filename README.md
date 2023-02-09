@@ -5,7 +5,7 @@ https://hmanalytics.shinyapps.io/QI_App/
 
 All the theoretical calculations used in this web application can be found on: https://www.researchgate.net/publication/353481953_Thrust_from_Symmetric_Capacitors_using_Quantised_Inertia
 
-Summary of ChatGPT regarding QI paper:
+Summary of the QI paper by ChatGPT:
 
 The text describes a theoretical model for quantized inertia and how it affects the behavior of electrons in a capacitor. According to this model, the electrons experience Unruh radiation, which is a phenomenon that arises due to acceleration and is seen as a temperature difference by an accelerated observer. The Unruh radiation is affected by the presence of a Rindler horizon, which is a theoretical boundary that separates regions of space-time with different levels of acceleration.
 
