@@ -1,6 +1,6 @@
 # Quantised Interia Helper
 A web application that helps to estimate some crutial parameters used in the new propulsion method known as quantised intertia or QI.
-the deployed webapplication can be found here:
+the deployed web application can be found here:
 https://hmanalytics.shinyapps.io/QI_App/
 
 All the theoretical calculations used in this web application can be found on: https://www.researchgate.net/publication/353481953_Thrust_from_Symmetric_Capacitors_using_Quantised_Inertia
