@@ -1,4 +1,4 @@
-# QuantisedInteriaHelper
+# Quantised Interia Helper
 A web application that helps to estimate some crutial parameters used in the new propulsion method known as quantised intertia or QI.
 the deployed webapplication can be found here:
 https://hmanalytics.shinyapps.io/QI_App/
