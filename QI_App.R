@@ -197,14 +197,10 @@ server <- function(input, output, session) {
       
       output$plot_voltage_vs_thrust <- renderPlot({
         
-        V_variation <- c(input$V - seq(5000,input$V_min,-input$V_step), input$V + seq(0,5000,input$V_step))
+        V_variation <- c(input$V - seq(5000,0,-input$V_step), input$V + seq(0,5000,input$V_step))
         
         V_variation[V_variation <= 0] <- NA
-        
-        V_variation[V_variation < input$V_min] <- NA
-        
-        V_variation[V_variation > input$V_max] <- NA
-        
+
         Thrust_variation <- QI_FORCE / (I * V_variation) * 1000
         
         Data <- data.frame(X = V_variation,Y = Thrust_variation, Y_min=Thrust_variation*(Variance), Y_max = Thrust_variation*(1/Variance))
@@ -213,7 +209,7 @@ server <- function(input, output, session) {
         
         ggplot(Data, aes(x=X, y=Y)) + geom_line(aes(y = Y_max), colour = "red",lwd=1.5) +
           geom_line(aes(y = Y_min), colour = "red",lwd=1.5) + geom_point(size=3, shape=16) + geom_line() +
-          ylab("Thrust (N / kW)") + xlab("Voltage (V)") + coord_cartesian(ylim = c(input$T_min,input$T_max)) + theme_minimal(base_size = 18)
+          ylab("Thrust (N / kW)") + xlab("Voltage (V)") + coord_cartesian(ylim = c(input$T_min,input$T_max)) + coord_cartesian(xlim = c(input$V_min,input$V_max)) + theme_minimal(base_size = 18)
         
       })
       
