@@ -72,7 +72,7 @@ ui <- shinyUI(fluidPage(
                      ),
                      
                      splitLayout(
-                       cellWidths = c("50%", "50%"),
+                       cellWidths = c("33.33%", "33.33%","33.33%"),
                        numericInput(
                          "T_max",
                          "Max thrust",
@@ -84,7 +84,12 @@ ui <- shinyUI(fluidPage(
                          "Min thrust",
                          min = 0,
                          value = 250
-                       )
+                       ),
+                       selectInput("transformation",
+                                 "Axis transformation",
+                                 choices=c("log10","log2","identity"),
+                                 selected = "identity"
+                                 )
                        
                      )
                      
@@ -170,7 +175,7 @@ server <- function(input, output, session) {
       })
       
       
-      paste("The theoretical minimal distance required between the plates of the capacitor for a positive lift is: ",round(capacitor_plates_distance*pi,9), " meters.")
+      paste("The theoretical minimal distance required between the plates of the capacitor for a positive lift is: ",round(capacitor_plates_distance*pi,9), " m.")
       
       })
     
@@ -207,10 +212,20 @@ server <- function(input, output, session) {
         
         Data <- na.omit(Data)
         
-        ggplot(Data, aes(x=X, y=Y)) + geom_line(aes(y = Y_max), colour = "red",lwd=1.5) +
-          geom_line(aes(y = Y_min), colour = "red",lwd=1.5) + geom_point(size=3, shape=16) + geom_line() +
-          ylab("Thrust (N / kW)") + xlab("Voltage (V)") + coord_cartesian(ylim = c(input$T_min,input$T_max)) + coord_cartesian(xlim = c(input$V_min,input$V_max)) + theme_minimal(base_size = 18)
-        
+        plot <- ggplot(Data, aes(x=X, y=Y)) + 
+          geom_line(aes(y = Y_max), colour = "red",lwd=1.5) +
+          geom_line(aes(y = Y_min), colour = "red",lwd=1.5) + 
+          geom_point(size=3, shape=16) + 
+          geom_line() +
+          ylab("Thrust (N / kW)") + xlab("Voltage (V)") + 
+          coord_cartesian(ylim = c(input$T_min,input$T_max)) + 
+          coord_cartesian(xlim = c(input$V_min,input$V_max)) + 
+          theme_minimal(base_size = 18) +
+          scale_x_continuous(trans=input$transformation) + 
+          scale_y_continuous(trans=input$transformation)
+
+        plot
+       
       })
       
       
