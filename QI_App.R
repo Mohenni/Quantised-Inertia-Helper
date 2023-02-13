@@ -60,13 +60,13 @@ ui <- shinyUI(fluidPage(
                          "V_max",
                          "Max voltage",
                          min = 0,
-                         value = 10000
+                         value = NA
                        ),
                        numericInput(
                          "V_min",
                          "Min voltage",
                          min = 1,
-                         value = 1
+                         value = NA
                        )
                        
                      ),
