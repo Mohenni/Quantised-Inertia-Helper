@@ -1,6 +1,7 @@
 # Quantised Inertia Helper
 A web application that help to estimate crutial parameters used in the new propulsion method known as quantised inertia or QI.
-the deployed web application can be found here:
+
+The deployed web application can be found here:
 https://hmanalytics.shinyapps.io/QI_App/
 
 All the theoretical calculations used in this web application are derived from the following publication by 
