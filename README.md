@@ -1,11 +1,11 @@
 # Quantised Inertia Helper
 A web application that help to estimate crutial parameters used in the new propulsion method known as quantised inertia or QI.
 
-The deployed web application can be found here:
+The deployed app can be found here:
 https://hmanalytics.shinyapps.io/QI_App/
 
-All the theoretical calculations used in this web application are derived from the following publication by 
-Mike McCulloch: https://www.researchgate.net/publication/353481953_Thrust_from_Symmetric_Capacitors_using_Quantised_Inertia
+All the theoretical calculations used in this app are derived from the following publication by 
+**Mike McCulloch**: https://www.researchgate.net/publication/353481953_Thrust_from_Symmetric_Capacitors_using_Quantised_Inertia
 
 **Example of an experimental capacitor setup to test QI:**
 
