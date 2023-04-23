@@ -282,11 +282,8 @@ ui <- shinyUI(fluidPage(
                         )
                         ,
                         
-                        column(6, wellPanel(),
+                        column(6,
                                wellPanel(
-                                 helpText(
-                                   "Plot with variation on the voltage:"
-                                 ),
                                  plotOutput("plot_voltage_vs_weightloss")
                                ))
                         
