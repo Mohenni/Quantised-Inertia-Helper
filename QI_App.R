@@ -197,7 +197,102 @@ ui <- shinyUI(fluidPage(
                         plotOutput("plot_distance_vs_weightloss")
                       ))
                
-             ))
+             )),
+             
+             tabPanel("Voltage vs. Weight Change",
+                      
+                      fluidRow(
+                        column(4, wellPanel(
+                          numericInput(
+                            "Weight2",
+                            "Total weight of the payload + capacitor (in grams)",
+                            min = 0,
+                            value = 250
+                          ),
+                          numericInput(
+                            "d2",
+                            "Distance between capacitor plates (in meters)",
+                            min = 0,
+                            value = 1 * 10 ^ (-5)
+                          ),
+                          numericInput(
+                            "SurfaceArea2",
+                            "Surface area of the capacitor (in meters squared)",
+                            min = 0,
+                            value = 0.0016
+                          ),
+                          numericInput(
+                            "Capacitance",
+                            "Capacitance of the capacitor (in Farads)",
+                            min = 0,
+                            value = 1.0E-8
+                          ),
+                          splitLayout(
+                            cellWidths = c("33.33%", "33.33%","33.33%"),
+                            numericInput(
+                              "V_step2",
+                              "Voltage step",
+                              min = 1,
+                              max = 10000,
+                              value = 1000
+                            ),
+                            numericInput(
+                              "V_max2",
+                              "Max voltage",
+                              min = 0,
+                              value = 5000
+                            ),
+                            numericInput(
+                              "V_min2",
+                              "Min voltage",
+                              min = 1,
+                              value = 0
+                            )
+                            
+                          )
+                          
+                        ),
+                        wellPanel(
+                          helpText("Graphical settings"),
+                          
+                          
+                          
+                          splitLayout(
+                            cellWidths = c("33.33%", "33.33%","33.33%"),
+                            numericInput(
+                              "w_max2",
+                              "Max weight",
+                              min = NA,
+                              value = NA
+                            ),
+                            numericInput(
+                              "w_min2",
+                              "Min weight",
+                              min = NA,
+                              value = NA
+                            )
+                            
+                          )
+                          
+                        )
+                        
+                        
+                        
+                        
+                        )
+                        ,
+                        
+                        column(6, wellPanel(),
+                               wellPanel(
+                                 helpText(
+                                   "Plot with variation on the voltage:"
+                                 ),
+                                 plotOutput("plot_voltage_vs_weightloss")
+                               ))
+                        
+                      )             
+             
+             )
     
   ),
   hr(),
@@ -242,6 +337,9 @@ server <- function(input, output, session) {
         plot1
         
       })
+      
+      
+     
       
       
       paste("The theoretical minimal distance required between the plates of the capacitor for a positive lift is: ",round(capacitor_plates_distance*pi,9), " m.")
@@ -301,6 +399,38 @@ server <- function(input, output, session) {
       paste("The predicted thrust of the capacitor is: ", round(Thrust,3), " N / kW.",
             " Considering an estimation error of ",input$variance,"%, the actual thrust should fall within the following interval: ",
             "[",round(Thrust*(Variance),3),";",round(Thrust*(1/Variance),3),"]"," N / kW.")
+      
+    })
+    
+    
+    
+    output$plot_voltage_vs_weightloss <- renderPlot({
+      
+      # I  = C * dV/dt
+      # where C is the capacitance in farads
+      # dV/dt is the change of voltage over time
+      # and I is the current in amperes
+      
+      dV_dt <- c(seq(input$V_min2,input$V_max2,input$V_step2))
+      
+      current = input$Capacitance * dV_dt
+      
+      Weight_variation2 <- input$Weight2 - (((0.00014 * current * input$SurfaceArea2)/((input$d2)^2))/9.80665)*100 
+      
+      df3 <- data.frame(X = dV_dt,Y = Weight_variation2)
+      
+      df3 <- na.omit(df3)
+      
+      plot3 <- ggplot(df3, aes(x=X, y=Y)) + 
+        geom_point(size=3, shape=16) + 
+        geom_line() +
+        ylab("Weight change (g)") + xlab("Voltage (V)") +
+        scale_y_continuous(limits = c(input$w_min2,input$w_max2)) +
+        coord_cartesian(xlim = c(input$V_min2,input$V_max2)) + 
+        theme_minimal(base_size = 16) + 
+        geom_line(aes(y = input$Weight2), colour = "red",lwd=1.5, linetype = 'dotted')
+      
+      plot3
       
     })
 }
