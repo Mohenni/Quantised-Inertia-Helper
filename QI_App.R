@@ -352,7 +352,7 @@ server <- function(input, output, session) {
       # P = V * I is the power in W
       # d = 1 * 10^(-5) is the distance between the capacitor plates in meters
       # F = 6 * 10^(-3) QI force in Newton
-      # The thrust is calculated as = F/P in N per W, where F is the QI force (that depends on d)
+      # The thrust is calculated as = F/P in N per W, where F is the QI force (that mostly depends on d)
       
       I = 1
       
@@ -404,9 +404,9 @@ server <- function(input, output, session) {
     output$plot_voltage_vs_weightloss <- renderPlot({
       
       # I  = C * dV/dt
-      # where C is the capacitance in farads
+      # where C is the capacitance in Farads
       # dV/dt is the change of voltage over time
-      # and I is the current in amperes
+      # and I is the current in Amperes
       
       dV_dt <- c(seq(input$V_min2,input$V_max2,input$V_step2))
       
